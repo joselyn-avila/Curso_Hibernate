@@ -1,4 +1,7 @@
 package com.cursos_online;
+import java.util.*;
+
+import javax.persistence.Query;
 
 import org.hibernate.Session;
 
@@ -29,7 +32,46 @@ static SessionFactory sessionFactory = new MetadataSources( registry ).buildMeta
 		
 			ingresarEstudiante(es1);
 			ingresarEstudiante(es2);
+			
+			List<Curso> cursos = getCurso();
+			for (Curso temp:cursos) {
+				System.out.println(temp);
+			}
+			
+			List<Estudiante> estudiante = getEstudiantes();
+			for (Estudiante temp:estudiante) {
+				System.out.println(temp);
+			}
+			List<Estudiante> estudiantes=getEstudiantesPorNombre("lorena");
+			for(Estudiante e: estudiantes) {
+				System.out.println(e);
 	}
+	}
+			
+	//ESTUDIANTES-POR-NOMBRE
+		static List<Estudiante>getEstudiantesPorNombre(String nombre){
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("from Estudiante where nombre=: nombre");
+		query.setParameter("nombre", nombre);
+		
+			List<Estudiante> estudiantes =(List<Estudiante>)query.getResultList();
+			return estudiantes;
+			}
+
+			 
+	static List<Curso>getCurso(){
+		Session session = sessionFactory.openSession();
+		List<Curso> cursos = session.createQuery("from Curso",Curso.class).list();
+		return cursos;
+	}	
+	
+	static List<Estudiante>getEstudiantes(){
+		Session session = sessionFactory.openSession();
+		List<Estudiante> estudiante = session.createQuery("from Estudiante",Estudiante.class).list();
+		return estudiante;
+	}	
+	
+	
 	static void ingresarEstudiante(Estudiante estudiante) {
 		
 		Session session = sessionFactory.openSession();
