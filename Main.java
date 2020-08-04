@@ -45,8 +45,15 @@ static SessionFactory sessionFactory = new MetadataSources( registry ).buildMeta
 			List<Estudiante> estudiantes=getEstudiantesPorNombre("lorena");
 			for(Estudiante e: estudiantes) {
 				System.out.println(e);
+			}
+			List<Curso> curso= getCurso();
+			for (Curso temp : curso) {
+			 System.out.println(curso.toString());
+			 }
 	}
-	}
+	
+	
+	
 			
 	//ESTUDIANTES-POR-NOMBRE
 		static List<Estudiante>getEstudiantesPorNombre(String nombre){
@@ -72,6 +79,9 @@ static SessionFactory sessionFactory = new MetadataSources( registry ).buildMeta
 	}	
 	
 	
+	
+	//METODOS
+	
 	static void ingresarEstudiante(Estudiante estudiante) {
 		
 		Session session = sessionFactory.openSession();
@@ -84,7 +94,7 @@ static SessionFactory sessionFactory = new MetadataSources( registry ).buildMeta
 		System.out.println(estudiante.getId());
 		
 	}
-static void ingresarCurso(Curso curso) {
+	static void ingresarCurso(Curso curso) {
 		
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -95,6 +105,42 @@ static void ingresarCurso(Curso curso) {
 		System.out.println(curso.getId());
 	}
 	
+
+		static void modificarCurso(Curso curso) {
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			 session.update(curso);
+			 
+			session.getTransaction().commit();
+			session.close();
+			System.out.println(curso.getId());
+			
+		}
+		static void eliminarCurso(int id) {
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			session.delete(id);
+			 
+			session.getTransaction().commit();
+			
+			
+		}
+		static void modificarEstudiane(Estudiante estudiante) {
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			 session.update(estudiante);
+			 
+			session.getTransaction().commit();
+			session.close();
+			System.out.println(estudiante.getId());
+		}
+		static void eliminarEstudiane(int id) {
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			session.delete(id);
+			 
+			session.getTransaction().commit();
+		}
 	
 	
 }
